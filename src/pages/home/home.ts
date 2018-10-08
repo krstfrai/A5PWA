@@ -16,7 +16,7 @@ export class HomePage {
 
   }
 
-  private btnTranslateClicked(input:string):void {
+  public btnTranslateClicked(input:string):void {
     console.log(input);
     this.userInput = input;
 
@@ -24,6 +24,7 @@ export class HomePage {
     this.translationProvider.getTranslationResponse(input).subscribe(
       (response:any) => {
         console.log(response);
+        this.result = response.responseData.translatedText;
       }
     );
   }
