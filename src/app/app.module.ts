@@ -13,6 +13,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { TranslationProvider } from '../providers/translation/translation';
 import { HistoryPage } from '../pages/history/history';
+import { IonicStorageModule } from '@ionic/storage';  
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { HistoryPage } from '../pages/history/history';
   imports: [
     BrowserModule,
     HttpClientModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
