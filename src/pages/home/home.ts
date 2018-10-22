@@ -4,6 +4,7 @@ import { NavController } from 'ionic-angular';
 import { TranslationProvider } from '../../providers/translation/translation';
 import { HistoryProvider } from '../../providers/history/history';
 import { TextToSpeech } from '@ionic-native/text-to-speech';
+import { SpeechRecognition, SpeechRecognitionListeningOptions } from '@ionic-native/speech-recognition';
 
 @Component({
   selector: 'page-home',
@@ -18,15 +19,40 @@ export class HomePage {
     public navCtrl: NavController,
     private translationProvider: TranslationProvider,
     private historyProvider: HistoryProvider,
-    private tts: TextToSpeech
+    private tts: TextToSpeech,
+    private speechRecognition: SpeechRecognition
   ) {
-
-  }
-
-  public btnMicClicked():void{
     
   }
 
+  public btnMicClicked():void {
+
+    //Check permissions for microphone
+    this.speechRecognition.hasPermission()
+    .then((hasPermission: boolean) => {
+       console.log('Recognition: ', hasPermission);
+      if(!hasPermission) {
+        //request permission
+        this.speechRecognition.requestPermission()
+        .then(
+          () => {
+            console.log('Granted');
+          },
+            //speech recognition
+            // Start the recognition process
+          () => console.log('Denied')
+        )
+      }
+      else {
+        let opt:SpeechRecognitionListeningOptions = {matches: 6};
+        this.speechRecognition.startListening(opt)
+            .subscribe(
+              (matches: Array<string>) => console.log(matches),
+              (onerror) => console.log('error:', onerror)
+            )
+          }
+  });
+}
   public btnTranslateClicked(input:string):void {
     console.log(input);
     this.userInput = input;

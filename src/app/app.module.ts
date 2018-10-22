@@ -17,6 +17,7 @@ import { IonicStorageModule } from '@ionic/storage';
 import { HistoryProvider } from '../providers/history/history';  
 
 import { TextToSpeech } from '@ionic-native/text-to-speech';
+import { SpeechRecognition } from '@ionic-native/speech-recognition';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { TextToSpeech } from '@ionic-native/text-to-speech';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     TranslationProvider,
     HistoryProvider,
-    TextToSpeech
+    TextToSpeech,
+    SpeechRecognition
     ]
 })
 export class AppModule {}
